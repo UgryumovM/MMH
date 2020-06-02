@@ -1,5 +1,7 @@
 TEMPLATE = subdirs
 
+CONFIG -= app_bundle
+
 SUBDIRS = app tests
 #DISTFILES += sonar-project.properties
 
