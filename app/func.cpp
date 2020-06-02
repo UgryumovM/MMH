@@ -3,6 +3,7 @@
 #include <QVector>
 #include <QThread>
 #include <QString>
+#include <QString>
 #include <iostream>
 #include <fstream>
 #include <experimental/filesystem>
