@@ -9,7 +9,7 @@ addons:
     organization: "ugryumovm"
 
 script:
-  - qmake
+  - qmake MoneyM.pro
   - make
   - ./tests/tests
 
