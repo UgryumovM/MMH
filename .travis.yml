@@ -10,7 +10,7 @@ addons:
 
 script:
   - qmake MoneyM.pro
-  - make
+  - make -std=c++11
   - ./tests/tests
 
 after_success:
