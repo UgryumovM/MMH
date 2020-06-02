@@ -1,8 +1,9 @@
 #ifndef FUNC_H
 #define FUNC_H
 
-#include <QObject>
+#include <QString>
 #include <QVector>
+#include <QObject>
 #include <QFile>
 
 class Func : public QObject
@@ -24,5 +25,6 @@ public slots:
     int getOpNum(QString wal);
     void deleteEntry(QString log, QString wal);
 };
+
 
 #endif // FUNC_H

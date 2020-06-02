@@ -5,7 +5,6 @@
 #include <QString>
 #include <iostream>
 #include <fstream>
-#include <codecvt>
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;

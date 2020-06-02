@@ -215,7 +215,10 @@ Window {
             standardButtons: StandardButton.Save | StandardButton.Cancel
 
             onAccepted:{
-                newW(wname.text);
+                if(wname.text)
+                    newW(wname.text);
+                else
+                    len.visible = true
             }
             TextField{
                 id: wname
@@ -226,6 +229,19 @@ Window {
                 validator: RegExpValidator { regExp: /[0-9a-zA-Z ]+/ }
             }
         }
+        Dialog{
+            id: len
+            visible:false
+            modality: Qt.WindowModal
+
+            title: "Ошибка!"
+            TextInput{
+                text: "Вы не ввели имя"
+                readOnly: true
+            }
+            standardButtons: StandardButton.Ok
+        }
+
         Dialog{
             id: errnum
             visible: false
