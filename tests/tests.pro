@@ -1,6 +1,6 @@
 include(gtest_dependency.pri)
 
-TEMPLATE = app
+TEMPLATE = tests
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG += thread
