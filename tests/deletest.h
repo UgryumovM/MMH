@@ -20,7 +20,7 @@ TEST(delEntry, pos){
     file.open("test.mh", std::ios::in);
     std::string buf;
     getline(file, buf);
-    ASSERT_EQ(buf, "");
+    ASSERT_EQ(buf, "bbb$1&b");
     file.close();
     remove("test.mh");
 }
