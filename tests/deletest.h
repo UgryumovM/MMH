@@ -14,7 +14,8 @@ TEST(delEntry, pos){
     Func f;
     f.createWallet("test");
     f.newEntry("aaa$0&a","test");
-    f.deleteEntry("aaa$0&a", "test");
+    f.newEntry("bbb$1&b","test");
+    f.deleteEntry("aaa\n0\na", "test");
     std::fstream file;
     file.open("test.mh", std::ios::in);
     std::string buf;
