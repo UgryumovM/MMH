@@ -51,9 +51,8 @@ double Func::getBal(QString wal){
              QString num = "";
              for(unsigned int i = 1; i < buf.length(); i++){
                  if(buf[i-1] == '$'){
-                    for(int j = 0;buf[i]!='&';j++){
+                    for(int j = 0;buf[i]!='&';j++, i++){
                         num[j] = buf[i];
-                        i++;
                     }
                 }
             }
