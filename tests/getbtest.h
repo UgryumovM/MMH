@@ -17,7 +17,7 @@ TEST(getBalance, pos){
     f.newEntry("ccc$-5&a","test");
     double balance = f.getBal("test");
     ASSERT_EQ(balance, 35.2);
-    remove("test.txt");
+    remove("test.mh");
 }
 
 TEST(getBalance, neg){
@@ -25,7 +25,7 @@ TEST(getBalance, neg){
     f.createWallet("test");
     double balance = f.getBal("test");
     ASSERT_EQ(balance, 0);
-    remove("test.txt");
+    remove("test.mh");
 }
 
 #endif // GETBTEST_H

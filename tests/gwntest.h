@@ -16,8 +16,8 @@ TEST(getWalNum, pos){
     f.createWallet("test2");
     int wnum = f.getWalletNum();
     ASSERT_EQ(wnum, 2);
-    remove("test.txt");
-    remove("test2.txt");
+    remove("test.mh");
+    remove("test2.mh");
 }
 
 TEST(getWalNum, neg){

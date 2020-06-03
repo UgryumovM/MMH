@@ -15,12 +15,12 @@ TEST(newEntry, pos){
     f.createWallet("test");
     f.newEntry("aaa","test");
     std::fstream file;
-    file.open("test.txt", std::ios::in);
+    file.open("test.mh", std::ios::in);
     std::string buf;
     getline(file, buf);
     ASSERT_EQ(buf, "aaa");
     file.close();
-    remove("test.txt");
+    remove("test.mh");
 }
 
 #endif // NEWETEST_H

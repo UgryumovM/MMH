@@ -22,7 +22,7 @@ int Func::getWalletNum()
         if (!fs::is_regular_file(p.status()))
             continue;
         std::string s = p.path().filename().string();
-        if(strstr(s.c_str(), ".txt"))
+        if(strstr(s.c_str(), ".mh"))
             wallets++;
     }
     return wallets;
@@ -31,7 +31,7 @@ int Func::getWalletNum()
 void Func::newEntry(QString log, QString wal)
 {
     std::ofstream file;
-    QString s = wal + ".txt";
+    QString s = wal + ".mh";
     file.open(s.toStdString(), std::ios::app);
     file << log.toStdString();
     file << '\n';
@@ -40,7 +40,7 @@ void Func::newEntry(QString log, QString wal)
 
 double Func::getBal(QString wal){
     double sum = 0;
-    QString s = wal + ".txt";
+    QString s = wal + ".mh";
     std::fstream f;
     f.open(s.toStdString(), std::ios::in);
     if (f)
@@ -70,7 +70,7 @@ QVector<QString> Func::wlist(){
         if (!fs::is_regular_file(p.status()))
             continue;
         std::string s = p.path().filename().string();
-        if(strstr(s.c_str(), ".txt")){
+        if(strstr(s.c_str(), ".mh")){
             std::string file = p.path().stem().string();
             QString wa;
             for(unsigned int i = 0; i < file.length(); i++){
@@ -83,7 +83,7 @@ QVector<QString> Func::wlist(){
 }
 
 void Func::createWallet(QString wal){
-    QString a = wal.toUtf8() + ".txt";
+    QString a = wal.toUtf8() + ".mh";
     for(auto& p: fs::recursive_directory_iterator(fs::current_path())){
         if (!fs::is_regular_file(p.status()))
             continue;
@@ -96,12 +96,12 @@ void Func::createWallet(QString wal){
     file.close();
 }
 void Func::deleteWallet(QString wal){
-    QString a = wal + ".txt";
+    QString a = wal + ".mh";
     remove(a.toStdString().c_str());
 }
 
 QStringList Func::getData(QString wal){
-    QString a = wal + ".txt";
+    QString a = wal + ".mh";
     QFile file(a);
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
@@ -142,7 +142,7 @@ QStringList Func::getData(QString wal){
 }
 
 int Func::getOpNum(QString wal){
-    QString a = wal + ".txt";
+    QString a = wal + ".mh";
     QFile file(a);
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
@@ -172,7 +172,7 @@ void Func::deleteEntry(QString log, QString wal){
             break;
         }
     }
-    QString a = wal + ".txt";
+    QString a = wal + ".mh";
     QFile file(a);
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);

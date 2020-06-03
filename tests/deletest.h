@@ -16,12 +16,12 @@ TEST(delEntry, pos){
     f.newEntry("aaa$0&a","test");
     f.deleteEntry("aaa$0&a", "test");
     std::fstream file;
-    file.open("test.txt", std::ios::in);
+    file.open("test.mh", std::ios::in);
     std::string buf;
     getline(file, buf);
     ASSERT_EQ(buf, "");
     file.close();
-    remove("test.txt");
+    remove("test.mh");
 }
 
 #endif // DELETEST_H

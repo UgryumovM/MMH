@@ -18,8 +18,8 @@ TEST(wlist, pos){
     ide.push_back("test");
     ide.push_back("test2");
     ASSERT_EQ(list, ide);
-    remove("test.txt");
-    remove("test2.txt");
+    remove("test.mh");
+    remove("test2.mh");
 }
 
 #endif // WLTEST_H

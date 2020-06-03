@@ -21,7 +21,7 @@ TEST(getData, pos){
     ide.push_back("bbb\n30.2\na\n");
     ide.push_back("aaa\n10\na\n");
     ASSERT_EQ(list, ide);
-    remove("test.txt");
+    remove("test.mh");
 }
 
 #endif // GETDTEST_H

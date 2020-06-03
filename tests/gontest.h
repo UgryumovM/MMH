@@ -18,7 +18,7 @@ TEST(getOperationNum, pos){
     f.newEntry("ccc", "test");
     int num = f.getOpNum("test");
     ASSERT_EQ(num, 3);
-    remove("test.txt");
+    remove("test.mh");
 }
 
 TEST(getOperationNum, neg){
@@ -26,7 +26,7 @@ TEST(getOperationNum, neg){
     f.createWallet("test");
     int num = f.getOpNum("test");
     ASSERT_EQ(num, 0);
-    remove("test.txt");
+    remove("test.mh");
 }
 
 #endif // GONTEST_H

@@ -16,7 +16,7 @@ TEST(deleteWallet, pos){
     f.createWallet("test2");
     f.deleteWallet("test2");
     std::fstream file;
-    file.open("test2.txt", std::ios::in);
+    file.open("test2.mh", std::ios::in);
     int isOpen = 0;
     if(file)
         isOpen = 1;

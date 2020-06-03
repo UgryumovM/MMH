@@ -16,14 +16,14 @@ TEST(createWal, pos){
     Func f;
     f.createWallet(wal);
     std::fstream file;
-    file.open("test.txt", std::ios::in);
+    file.open("test.mh", std::ios::in);
     int isOpen = 0;
     if(file)
         isOpen = 1;
     ASSERT_EQ(isOpen, 1);
-    if(isOpen)
-        remove("test.txt");
     file.close();
+    if(isOpen)
+        remove("test.mh");
 }
 
 TEST(createWal, neg){
@@ -31,13 +31,13 @@ TEST(createWal, neg){
     Func f;
     f.createWallet(wal);
     std::fstream file;
-    file.open(".txt", std::ios::in);
+    file.open(".mh", std::ios::in);
     int isOpen = 0;
     if(file)
         isOpen = 1;
     ASSERT_EQ(isOpen, 0);
-    if(isOpen)
-        remove(".txt");
     file.close();
+    if(isOpen)
+        remove(".mh");
 }
 #endif // CWALTEST_H
