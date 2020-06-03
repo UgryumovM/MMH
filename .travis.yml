@@ -2,9 +2,8 @@ language:
   - cpp
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y qtbase5-dev qtdeclarative5-dev qtquickcontrols2-5-dev qtmultimedia5-dev
-  - sudo apt-get install -y qt5-default qttools5-dev-tools
+  - sudo apt-get update
+  - sudo apt-get install libqt5-dev qt5-qmake
   - pip install --user cpp-coveralls
 
 addons:
