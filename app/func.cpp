@@ -83,6 +83,8 @@ QVector<QString> Func::wlist(){
 }
 
 void Func::createWallet(QString wal){
+    if(wal == "")
+        return;
     QString a = wal.toUtf8() + ".mh";
     for(auto& p: fs::recursive_directory_iterator(fs::current_path())){
         if (!fs::is_regular_file(p.status()))
