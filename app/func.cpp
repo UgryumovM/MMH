@@ -179,7 +179,7 @@ void Func::deleteEntry(QString log, QString wal){
     in.setCodec("UTF-8");
     QStringList text;
     int i = 0;
-    int entryline;
+    int entryline = 0;
     QString line;
     while(!in.atEnd()){
         i++;
