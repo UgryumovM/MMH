@@ -13,7 +13,6 @@ extern "C++" {
 
 TEST(deleteWallet, pos){
     Func f;
-    f.createWallet("test");
     f.createWallet("test2");
     f.deleteWallet("test2");
     std::fstream file;
@@ -22,7 +21,6 @@ TEST(deleteWallet, pos){
     if(file)
         isOpen = 1;
     ASSERT_EQ(isOpen, 0);
-    remove("test.txt");
 }
 
 #endif // DWALTEST_H
