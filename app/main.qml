@@ -1,8 +1,8 @@
-import QtQuick 2.3
-import QtQuick.Window 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Dialogs
+import QtQuick.Controls 2.15
 
 Window {
     id: w
@@ -12,11 +12,11 @@ Window {
     property int balance
     property var a: func.wlist()
     width: 810
-    minimumWidth: 810
-    maximumWidth: 810
+    minimumWidth: 650
+    //maximumWidth: 810
     height: 700
-    minimumHeight: 700
-    maximumHeight: 700
+    //minimumHeight: 700
+    //maximumHeight: 700
     function addD(a){
         func.newEntry(w.log, a)
         walletlist.refresh()
@@ -40,16 +40,10 @@ Window {
 
     title: qsTr("Money management helper")
 
-    RowLayout{
-        History{
-            id: history
-            Layout.preferredHeight: 700
-            Layout.preferredWidth: 600
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-        ColumnLayout{
+    ColumnLayout{
+        x: 5
+        RowLayout{
+            spacing: 0
             WalletList{
                 id: walletlist
             }
@@ -80,6 +74,7 @@ Window {
                     w.a = func.wlist()
                     dw.fill()
                     delwa.visible = true
+                    walletlist.refresh()
                 }
 
                 onDelZ:{
@@ -94,14 +89,25 @@ Window {
                     }
                 }
             }
+
+        }
+        History{
+            id: history
+            Layout.preferredHeight: 700
+            Layout.preferredWidth: 600
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
         }
 
         Dialog{
             id: errd
             visible: false
-            modality: Qt.WindowModal
+            modal: true
             title: "Ошибка"
-            standardButtons: StandardButton.Ok
+            standardButtons: Dialog.Ok
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
             TextInput{
                 text: "Сначала выберите запись, щелкнув по ней мышью, или создайте новую"
                 readOnly: true
@@ -111,9 +117,11 @@ Window {
         Dialog{
             id: errc
             visible: false
-            modality: Qt.WindowModal
+            modal: true
             title: "Ошибка"
-            standardButtons: StandardButton.Ok
+            standardButtons: Dialog.Ok
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
             TextInput{
                 text: "Для начала работы создайте новый кошелёк"
                 readOnly: true
@@ -123,22 +131,29 @@ Window {
         Dialog{
             id: dateD
             visible: false
-            modality: Qt.WindowModal
+            modal: true
             title: "Ввод данных"
-            standardButtons: StandardButton.Save | StandardButton.Cancel
-
+            standardButtons: Dialog.Save | Dialog.Cancel
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
             onAccepted:{
-                w.log = calendard.selectedDate.toLocaleDateString() + '$' + ms.text + '&' + cm.text
-                addD(cb.currentText)
+                if(cb.currentText){
+                    w.log = calendard.text + '$' + ms.text + '&' + cm.text
+                    addD(cb.currentText)
+                } else errnumr.visible = true;
             }
             ColumnLayout{
-                Calendar{
+                anchors.centerIn: parent
+                TextField{
                    id: calendard
+                   Layout.fillWidth: true
+                   validator: RegularExpressionValidator { regularExpression: /^([1-9]|0[1-9]|[12][0-9]|3[01])[-\.]([1-9]|0[1-9]|1[012])[-\.](19|20)\d\d$/ }
+                   placeholderText: "Дата"
                 }
                 TextField{
                    id: ms
                    Layout.fillWidth: true
-                   validator: RegExpValidator { regExp: /[0-9.]+/ }
+                   validator: RegularExpressionValidator { regularExpression: /[0-9.]+/ }
                    placeholderText: "Сумма"
                 }
                 TextField{
@@ -167,22 +182,29 @@ Window {
             id: dateR
             visible: false
 
-            modality: Qt.WindowModal
+            modal: true
             title: "Ввод данных"
-            standardButtons: StandardButton.Save | StandardButton.Cancel
-
+            standardButtons: Dialog.Save | Dialog.Cancel
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
             onAccepted:{
-                w.log = calendar.selectedDate.toLocaleDateString() + '$-' + msr.text + '&' + cmr.text
-                addR(cbr.currentText)
+                if(cbr.currentText){
+                    w.log = calendar.text + '$-' + msr.text + '&' + cmr.text
+                    addR(cbr.currentText)
+                } else errnumr.visible = true;
             }
             ColumnLayout{
-                Calendar{
+                anchors.centerIn: parent
+                TextField{
                    id: calendar
+                   Layout.fillWidth: true
+                   validator: RegularExpressionValidator { regularExpression: /^([1-9]|0[1-9]|[12][0-9]|3[01])[-\.]([1-9]|0[1-9]|1[012])[-\.](19|20)\d\d$/ }
+                   placeholderText: "Дата"
                 }
                 TextField{
                     id: msr
                     Layout.fillWidth: true
-                    validator: RegExpValidator { regExp: /[0-9.]+/ }
+                    validator: RegularExpressionValidator { regularExpression: /[0-9.]+/ }
                     placeholderText: "Сумма"
                 }
                 TextField{
@@ -209,11 +231,12 @@ Window {
         Dialog{
             id: addWa
             visible: false
-            modality: Qt.WindowModal
+            modal: true
 
             title: "Новый кошелек"
-            standardButtons: StandardButton.Save | StandardButton.Cancel
-
+            standardButtons: Dialog.Save | Dialog.Cancel
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
             onAccepted:{
                 if(wname.text)
                     newW(wname.text);
@@ -226,43 +249,65 @@ Window {
                 width: parent.width
 
                 placeholderText: "Название кошелька (латиница)"
-                validator: RegExpValidator { regExp: /[0-9a-zA-Z ]+/ }
+                validator: RegularExpressionValidator { regularExpression: /[0-9a-zA-Z ]+/ }
             }
         }
         Dialog{
             id: len
             visible:false
-            modality: Qt.WindowModal
+            modal: true
 
             title: "Ошибка!"
             TextInput{
                 text: "Вы не ввели имя"
                 readOnly: true
             }
-            standardButtons: StandardButton.Ok
+            standardButtons: Dialog.Ok
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
         }
 
         Dialog{
-            id: errnum
+            id: errnumd
             visible: false
-            modality: Qt.WindowModal
+            modal: true
 
             title: "Ошибка!"
             TextInput{
-                text: "У вас не может быть больше 9 кошельков"
+                text: "Сначала нужно выбрать кошелек"
                 readOnly: true
             }
-            standardButtons: StandardButton.Ok
+            onAccepted: dateD.visible = true
+            standardButtons: Dialog.Ok
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
+        }
+        Dialog{
+            id: errnumr
+            visible: false
+            modal: true
+
+            title: "Ошибка!"
+            TextInput{
+                text: "Сначала нужно выбрать кошелек"
+                readOnly: true
+            }
+            onAccepted: dateR.visible = true
+            standardButtons: Dialog.Ok
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
         }
 
         Dialog{
             id: delwa
             title: "Выберите кошелек"
-            standardButtons: StandardButton.Ok | StandardButton.Cancel
+            standardButtons: Dialog.Ok | Dialog.Cancel
             onAccepted:{
                 func.deleteWallet(dw.currentText)
                 walletlist.refresh()
             }
+            topMargin: w.height / 2 - height / 2
+            leftMargin: w.width / 2 - width / 2
             ComboBox{
                 id: dw
                 textRole: "text"
@@ -278,5 +323,5 @@ Window {
                 width: parent.width
             }
         }
-    }
+
 }

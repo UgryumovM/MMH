@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QObject>
 #include <QFile>
+#include <QPair>
 
 class Func : public QObject
 {
@@ -24,6 +25,7 @@ public slots:
     QStringList getData(QString wal);
     int getOpNum(QString wal);
     void deleteEntry(QString log, QString wal);
+    QStringList parseAll (QString log);
 };
 
 

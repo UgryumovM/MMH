@@ -7,6 +7,8 @@
 #include <iostream>
 #include <fstream>
 #include <experimental/filesystem>
+#include <QStringConverter>
+#include <QPair>
 
 namespace fs = std::experimental::filesystem;
 
@@ -50,10 +52,14 @@ double Func::getBal(QString wal){
         {
              QString num = "";
              for(unsigned int i = 1; i < buf.length(); i++){
-                 if(buf[i-1] == '$'){
+                 std::string dollar = "$";
+                 if(buf[i-1] == dollar[0]){
+                    std::string mys = "";
                     for(int j = 0;buf[i]!='&';j++, i++){
-                        num[j] = buf[i];
+                        mys.push_back(buf[i]);
                     }
+                    num = QString::fromStdString(mys);
+                    break;
                 }
             }
             sum += num.toDouble(nullptr);
@@ -64,17 +70,19 @@ double Func::getBal(QString wal){
 }
 
 QVector<QString> Func::wlist(){
+    std::cout << 'a';
     QVector<QString> walist;
     for(auto& p: fs::recursive_directory_iterator(fs::current_path())){
         if (!fs::is_regular_file(p.status()))
             continue;
         std::string s = p.path().filename().string();
+        std::cout << s;
         if(strstr(s.c_str(), ".mh")){
             std::string file = p.path().stem().string();
-            QString wa;
-            for(unsigned int i = 0; i < file.length(); i++){
+            QString wa = QString::fromStdString(file);
+            /*for(unsigned int i = 0; i < file.length() - 1; i++){
                 wa[i] = file[i];
-            }
+            }*/
             walist.push_back(wa.toUtf8());
         }
     }
@@ -82,6 +90,7 @@ QVector<QString> Func::wlist(){
 }
 
 void Func::createWallet(QString wal){
+    std::cout << wal.toStdString();
     if(wal == "")
         return;
     QString a = wal.toUtf8() + ".mh";
@@ -106,7 +115,7 @@ QStringList Func::getData(QString wal){
     QFile file(a);
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
-    in.setCodec("UTF-8");
+    in.setEncoding(QStringConverter::Utf8);
 
     QStringList text;
     QString b;
@@ -116,13 +125,14 @@ QStringList Func::getData(QString wal){
         line = in.readLine();
         int k = line.length();
         for(int i = 0; i < k; i++){
+            QString test = line[i];
             if((line[i] == '$') || (line[i] == '&')){
-                b[i] = '\n';
+                b.push_back('\n');
                 continue;
             }
             if(line[i] == '\n')
                 continue;
-            b[i] = line[i];
+            b.push_back(line[i]);
         }
         b.append('\n');
         text.push_back(b);
@@ -147,7 +157,7 @@ int Func::getOpNum(QString wal){
     QFile file(a);
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
-    in.setCodec("UTF-8");
+    in.setEncoding(QStringConverter::Utf8);
     int num = 0;
 
     QString line;
@@ -177,7 +187,7 @@ void Func::deleteEntry(QString log, QString wal){
     QFile file(a);
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
-    in.setCodec("UTF-8");
+    in.setEncoding(QStringConverter::Utf8);
     QStringList text;
     int i = 0;
     int entryline = 0;
@@ -200,4 +210,44 @@ void Func::deleteEntry(QString log, QString wal){
         f << text[j].toStdString() << std::endl;
     }
     f.close();
+}
+
+QStringList Func::parseAll(QString log){
+    QStringList res;
+    QString date;
+    int j = 0;
+    for(int i = 0; i < log.length(); i++){
+        if(log[i] == '\n'){
+            j = i + 1;
+            break;
+        }
+        date.append(log[i]);
+    }
+    res.push_back(date);
+
+    QString sum;
+    for(int i = j; i < log.length(); i++){
+        if(log[i] == '\n'){
+            j = i + 1;
+            break;
+        }
+        sum.append(log[i]);
+    }
+
+    res.push_back(sum);
+
+    if(sum.startsWith('-')){
+        res.push_back("1");
+    } else res.push_back("0");
+
+    QString desc;
+    for(int i = j; i < log.length(); i++){
+        if(log[i] == '\n')   break;
+
+        desc.append(log[i]);
+    }
+
+    res.push_back(desc);
+
+    return res;
 }

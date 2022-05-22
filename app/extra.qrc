@@ -1,6 +1,11 @@
 <RCC>
     <qresource prefix="/e">
         <file>icon.png</file>
+        <file>delwallet.png</file>
+        <file>doxod.png</file>
+        <file>newwallet.png</file>
+        <file>rasxod.png</file>
+        <file>trash.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

@@ -1,12 +1,12 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.12
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+//import QtQuick.Dialogs 1.2
 
 Rectangle{
     id:toolbarr
-    width: 200
-    height: 290
+    width: w.width - walletlist.width - 10
+    height: 50
     color: "lightyellow"
 
     signal newD()
@@ -15,47 +15,73 @@ Rectangle{
     signal newW()
     signal delW()
 
+    RowLayout{
 
-    Button{
-        x: 0
-        y: 0
-        text: "Запись доходов"
-        Layout.fillWidth: true
-        width: parent.width
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        Button{
+            //text: "Запись доходов"
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/doxod.png"
 
-        onClicked: newD()
-    }
+            onClicked: newD()
+        }
 
-    Button{
-        x: 0
-        y: 60
-        text: "Запись расходов"
-        width: parent.width
+        Button{
+            //text: "Запись расходов"
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/rasxod.png"
+            onClicked: newR()
+        }
+        Button{
 
-        onClicked: newR()
-    }
-    Button{
-        x: 0
-        y: 120
-        text: "Удалить запись"
-        width: parent.width
+            //text: "Удалить запись"
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/trash.png"
+            onClicked: delZ()
+        }
+        Button{
 
-        onClicked: delZ()
-    }
-    Button{
-        x: 0
-        y: 180
-        text: "Добавить новый кошелёк"
-        width: parent.width
+            //text: "Удалить кошелек"
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/delwallet.png"
+            onClicked: delW()
+        }
+        Button{
 
-        onClicked: newW()
-    }
-    Button{
-        x: 0
-        y: 240
-        text: "Удалить кошелек"
-        width: parent.width
+            //text: "Добавить новый кошелёк"
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/newwallet.png"
+            onClicked: newW()
+        }
 
-        onClicked: delW()
     }
 }
