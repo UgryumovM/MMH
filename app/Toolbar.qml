@@ -9,6 +9,22 @@ Rectangle{
     height: 50
     color: "lightyellow"
 
+    property bool show: false
+
+    onShowChanged: {
+        if(show){
+            doxod.visible = true
+            rasxod.visible = true
+            trash.visible = true
+            delwallet.visible = true
+        } else {
+            doxod.visible = false
+            rasxod.visible = false
+            trash.visible = false
+            delwallet.visible = false
+        }
+    }
+
     signal newD()
     signal newR()
     signal delZ()
@@ -22,6 +38,7 @@ Rectangle{
         anchors.rightMargin: 10
         Button{
             //text: "Запись доходов"
+            id: doxod
             Layout.minimumHeight: toolbarr.height - 10
             Layout.minimumWidth: toolbarr.height - 10
             icon.width: toolbarr.height - 10
@@ -31,12 +48,13 @@ Rectangle{
             width: parent.width
             icon.color: "transparent"
             icon.source: "/e/doxod.png"
-
+            visible: false
             onClicked: newD()
         }
 
         Button{
             //text: "Запись расходов"
+            id: rasxod
             Layout.minimumHeight: toolbarr.height - 10
             Layout.minimumWidth: toolbarr.height - 10
             icon.width: toolbarr.height - 10
@@ -44,11 +62,13 @@ Rectangle{
             width: parent.width
             icon.color: "transparent"
             icon.source: "/e/rasxod.png"
+            visible: false
             onClicked: newR()
         }
         Button{
 
             //text: "Удалить запись"
+            id: trash
             Layout.minimumHeight: toolbarr.height - 10
             Layout.minimumWidth: toolbarr.height - 10
             icon.width: toolbarr.height - 10
@@ -56,10 +76,11 @@ Rectangle{
             width: parent.width
             icon.color: "transparent"
             icon.source: "/e/trash.png"
+            visible: false
             onClicked: delZ()
         }
         Button{
-
+            id: delwallet
             //text: "Удалить кошелек"
             Layout.minimumHeight: toolbarr.height - 10
             Layout.minimumWidth: toolbarr.height - 10
@@ -68,10 +89,11 @@ Rectangle{
             width: parent.width
             icon.color: "transparent"
             icon.source: "/e/delwallet.png"
+            visible: false
             onClicked: delW()
         }
         Button{
-
+            id: addwallet
             //text: "Добавить новый кошелёк"
             Layout.minimumHeight: toolbarr.height - 10
             Layout.minimumWidth: toolbarr.height - 10

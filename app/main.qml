@@ -46,9 +46,13 @@ Window {
             spacing: 0
             WalletList{
                 id: walletlist
+                onIAmActive: {
+                    tb.show = true
+                }
             }
 
             Toolbar{
+                id: tb
                 onNewD:{
                     if(func.getWalletNum() > 0){
                         w.a = func.wlist()
