@@ -300,3 +300,138 @@ void Func::editEntry(QString oldlog, QString wal, QString newlog){
     }
     f.close();
 }
+
+QStringList Func::parseYears(QString wal){
+    QStringList years;
+    QStringList data = getData(wal);
+    QString row;
+    QString year;
+    for(int i = 0; i < data.length(); i++){
+        row = data[i];
+        int j = 0;
+        j = row.toStdString().find('\n');
+        year = (QString)row[j - 4] + row[j - 3] + row[j - 2] + row[j - 1];
+        if(!years.contains(year)){
+            years.push_back(year);
+        }
+    }
+    return years;
+}
+
+QStringList Func::getYearData(QString wal, QString year){
+    QStringList operations;
+    QStringList data = getData(wal);
+    QString row;
+    QString tyear;
+    for(int i = 0; i < data.length(); i++){
+        row = data[i];
+        int j = 0;
+        j = row.toStdString().find('\n');
+        tyear = (QString)row[j - 4] + row[j - 3] + row[j - 2] + row[j - 1];
+        if(year == tyear){
+            operations.push_back(row);
+        }
+    }
+    return operations;
+}
+
+double Func::getYearSum(QString wal, QString year){
+    double sum = 0;
+    QStringList data = getData(wal);
+    QString row;
+    QString tyear;
+    QStringList allbal;
+    QString tempbal;
+    for(int i = 0; i < data.length(); i++){
+        row = data[i];
+        int j = 0;
+        j = row.toStdString().find('\n');
+        tyear = (QString)row[j - 4] + row[j - 3] + row[j - 2] + row[j - 1];
+        if(year == tyear){
+            tempbal = "";
+            int k = 0;
+            for(; k < row.length(); k++){
+                if(row[k] == '\n')  break;
+            }
+            k++;
+            for(; k < row.length(); k++){
+                if(row[k] == '\n')  break;
+                tempbal.push_back(row[k]);
+            }
+            allbal.push_back(tempbal);
+        }
+    }
+    for(int i = 0; i < allbal.length(); i++){
+        sum += allbal[i].toDouble(nullptr);
+    }
+    return sum;
+}
+
+double Func::getYearDohod(QString wal, QString year){
+    double sum = 0;
+    QStringList data = getData(wal);
+    QString row;
+    QString tyear;
+    QStringList allbal;
+    QString tempbal;
+    for(int i = 0; i < data.length(); i++){
+        row = data[i];
+        int j = 0;
+        j = row.toStdString().find('\n');
+        tyear = (QString)row[j - 4] + row[j - 3] + row[j - 2] + row[j - 1];
+        if(year == tyear){
+            tempbal = "";
+            int k = 0;
+            for(; k < row.length(); k++){
+                if(row[k] == '\n')  break;
+            }
+            k++;
+            for(; k < row.length(); k++){
+                if(row[k] == '\n')  break;
+                tempbal.push_back(row[k]);
+            }
+            allbal.push_back(tempbal);
+        }
+    }
+    for(int i = 0; i < allbal.length(); i++){
+        double t = allbal[i].toDouble(nullptr);
+        if(t > 0)
+            sum += t;
+    }
+    return sum;
+}
+
+double Func::getYearRashod(QString wal, QString year){
+    double sum = 0;
+    QStringList data = getData(wal);
+    QString row;
+    QString tyear;
+    QStringList allbal;
+    QString tempbal;
+    for(int i = 0; i < data.length(); i++){
+        row = data[i];
+        int j = 0;
+        j = row.toStdString().find('\n');
+        tyear = (QString)row[j - 4] + row[j - 3] + row[j - 2] + row[j - 1];
+        if(year == tyear){
+            tempbal = "";
+            int k = 0;
+            for(; k < row.length(); k++){
+                if(row[k] == '\n')  break;
+            }
+            k++;
+            for(; k < row.length(); k++){
+                if(row[k] == '\n')  break;
+                tempbal.push_back(row[k]);
+            }
+            allbal.push_back(tempbal);
+        }
+    }
+    for(int i = 0; i < allbal.length(); i++){
+        double t = allbal[i].toDouble(nullptr);
+        if(t < 0)
+            sum -= t;
+    }
+    return sum;
+}
+

@@ -54,10 +54,13 @@ Rectangle{
             }
             onActivated: {
                 iAmActive()
+
                 history.wal = dw.currentText
+                footer.ffill()
                 history.opr(dw.currentText)
                 wal_bal = func.getBal(dw.currentText)
                 wal_bal ? balance.text = "Баланс: " + wal_bal : balance.text = "Баланс: 0"
+
             }
         }
         TextInput{

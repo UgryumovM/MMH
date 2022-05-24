@@ -22,12 +22,14 @@ Window {
         func.newEntry(w.log, a)
         walletlist.refresh()
         history.opr(a)
+        footer.ffill()
     }
 
     function addR(a) {
         func.newEntry(w.log, a)
         walletlist.refresh()
         history.opr(a)
+        footer.ffill()
     }
     function newW(a) {
         if (walletlist.wnum > 8) {
@@ -99,21 +101,28 @@ Window {
                     if (history.currentline) {
                         rbd.set()
                         rbr.set()
-                        dateI.visible = true;
-
+                        dateI.visible = true
                     } else {
                         errd.visible = true
                     }
                 }
             }
         }
+
         History {
             id: history
-            Layout.preferredHeight: 700
+            Layout.preferredHeight: 590
             Layout.preferredWidth: 500
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.rightMargin: 10
+        }
+        Footer {
+            id: footer
+            Layout.preferredHeight: 50
+            Layout.preferredWidth: 500
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
     }
 
@@ -155,10 +164,17 @@ Window {
         leftMargin: w.width / 2 - width / 2
         onAccepted: {
             var temp = history.currentline
-            rbr.checked ? func.editEntry(history.currentline, history.wal, calendari.text + '$-' + msi.text + '&' + cmi.text) : func.editEntry(history.currentline, history.wal, calendari.text + '$' + msi.text + '&' + cmi.text)
+            rbr.checked ? func.editEntry(
+                              history.currentline, history.wal,
+                              calendari.text + '$-' + msi.text + '&'
+                              + cmi.text) : func.editEntry(history.currentline,
+                                                           history.wal, calendari.text
+                                                           + '$' + msi.text + '&' + cmi.text)
             walletlist.refresh()
             history.opr(history.wal)
-            rbr.checked ? history.currentline = calendari.text + '\n-' + msi.text + '\n' + cmi.text + '\n' : history.currentline = calendari.text + '\n' + msi.text + '\n' + cmi.text + '\n'
+            rbr.checked ? history.currentline = calendari.text + '\n-' + msi.text
+                          + '\n' + cmi.text + '\n' : history.currentline
+                          = calendari.text + '\n' + msi.text + '\n' + cmi.text + '\n'
         }
         ColumnLayout {
             anchors.centerIn: parent
@@ -187,21 +203,21 @@ Window {
                 maximumLength: 70
                 text: history.parsedData[3]
             }
-            RowLayout{
+            RowLayout {
                 RadioButton {
                     id: rbd
                     //checked: true
                     text: qsTr("Доход")
-                    function set(){
-                        if(history.parsedData[2] === "0")
+                    function set() {
+                        if (history.parsedData[2] === "0")
                             checked = true
                     }
                 }
                 RadioButton {
                     id: rbr
                     text: qsTr("Расход")
-                    function set(){
-                        if(history.parsedData[2] === "1")
+                    function set() {
+                        if (history.parsedData[2] === "1")
                             checked = true
                     }
                 }

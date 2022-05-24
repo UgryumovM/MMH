@@ -27,6 +27,11 @@ public slots:
     void deleteEntry(QString log, QString wal);
     QStringList parseAll (QString log);
     void editEntry(QString oldlog, QString wal, QString newlog);
+    QStringList parseYears(QString wal);
+    QStringList getYearData(QString wal, QString year);
+    double getYearSum(QString wal, QString year);
+    double getYearRashod(QString wal, QString year);
+    double getYearDohod(QString wal, QString year);
 };
 
 
