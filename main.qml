@@ -241,6 +241,7 @@ Window {
             standardButtons: Dialog.Save | Dialog.Cancel
             topMargin: w.height / 2 - height / 2
             leftMargin: w.width / 2 - width / 2
+            width: 200
             onAccepted:{
                 if(wname.text)
                     newW(wname.text);
