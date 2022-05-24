@@ -4,5 +4,6 @@
         <file>History.qml</file>
         <file>Toolbar.qml</file>
         <file>WalletList.qml</file>
+        <file>Toolbar_wallet.qml</file>
     </qresource>
 </RCC>

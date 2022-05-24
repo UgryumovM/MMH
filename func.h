@@ -26,6 +26,7 @@ public slots:
     int getOpNum(QString wal);
     void deleteEntry(QString log, QString wal);
     QStringList parseAll (QString log);
+    void editEntry(QString oldlog, QString wal, QString newlog);
 };
 
 

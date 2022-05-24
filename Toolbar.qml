@@ -5,31 +5,30 @@ import QtQuick.Layouts 1.12
 
 Rectangle{
     id:toolbarr
-    width: w.width - walletlist.width - 10
+    width: w.width - walletlist.width - 10 - tbw.width
     height: 50
     color: "lightyellow"
 
     property bool show: false
 
     onShowChanged: {
-        if(show){
+        if (show) {
             doxod.visible = true
             rasxod.visible = true
             trash.visible = true
-            delwallet.visible = true
+            edit.visible = true
         } else {
             doxod.visible = false
             rasxod.visible = false
             trash.visible = false
-            delwallet.visible = false
+            edit.visible = false
         }
     }
 
     signal newD()
     signal newR()
     signal delZ()
-    signal newW()
-    signal delW()
+    signal editZ()
 
     RowLayout{
 
@@ -66,6 +65,21 @@ Rectangle{
             onClicked: newR()
         }
         Button{
+            //text: "Удалить запись"
+            id: edit
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/pen.png"
+            visible: false
+            onClicked: editZ()
+        }
+        Button{
 
             //text: "Удалить запись"
             id: trash
@@ -79,31 +93,7 @@ Rectangle{
             visible: false
             onClicked: delZ()
         }
-        Button{
-            id: delwallet
-            //text: "Удалить кошелек"
-            Layout.minimumHeight: toolbarr.height - 10
-            Layout.minimumWidth: toolbarr.height - 10
-            icon.width: toolbarr.height - 10
-            icon.height: toolbarr.height - 10
-            width: parent.width
-            icon.color: "transparent"
-            icon.source: "/e/delwallet.png"
-            visible: false
-            onClicked: delW()
-        }
-        Button{
-            id: addwallet
-            //text: "Добавить новый кошелёк"
-            Layout.minimumHeight: toolbarr.height - 10
-            Layout.minimumWidth: toolbarr.height - 10
-            icon.width: toolbarr.height - 10
-            icon.height: toolbarr.height - 10
-            width: parent.width
-            icon.color: "transparent"
-            icon.source: "/e/newwallet.png"
-            onClicked: newW()
-        }
+
 
     }
 }

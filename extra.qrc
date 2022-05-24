@@ -6,6 +6,7 @@
         <file>newwallet.png</file>
         <file>rasxod.png</file>
         <file>trash.png</file>
+        <file>pen.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

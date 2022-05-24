@@ -226,7 +226,13 @@ QStringList Func::parseAll(QString log){
     res.push_back(date);
 
     QString sum;
+    QString sign = "0";
+    if (log[j] == '-'){
+        sign = "1";
+        j++;
+    }
     for(int i = j; i < log.length(); i++){
+
         if(log[i] == '\n'){
             j = i + 1;
             break;
@@ -236,9 +242,7 @@ QStringList Func::parseAll(QString log){
 
     res.push_back(sum);
 
-    if(sum.startsWith('-')){
-        res.push_back("1");
-    } else res.push_back("0");
+    res.push_back(sign);
 
     QString desc;
     for(int i = j; i < log.length(); i++){
@@ -250,4 +254,49 @@ QStringList Func::parseAll(QString log){
     res.push_back(desc);
 
     return res;
+}
+
+void Func::editEntry(QString oldlog, QString wal, QString newlog){
+    int o;
+    for(o = 0; o < oldlog.length() - 1; o++){
+        if(oldlog[o] == '\n'){
+            oldlog[o] = '$';
+            break;
+        }
+    }
+    for(; o < oldlog.length() - 1; o++){
+        if(oldlog[o] == '\n'){
+            oldlog[o] = '&';
+            break;
+        }
+    }
+    QString a = wal + ".mh";
+    QFile file(a);
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::Utf8);
+    QStringList text;
+    int i = 0;
+    int entryline = 0;
+    QString line;
+    while(!in.atEnd()){
+        i++;
+        line = in.readLine();
+        if(strstr(oldlog.toStdString().c_str(), line.toStdString().c_str())){
+            entryline = i;
+        }
+        text.push_back(line);
+    }
+    file.close();
+    text[entryline - 1] = newlog.toStdString().c_str();
+    for(i = entryline - 1; i < text.length() - 1; i++){
+        text[i] = text[i];
+    }
+    text[entryline - 1] = newlog.toStdString().c_str();
+    //text[text.length()-1] = '\0';
+    std::ofstream f(a.toStdString());
+    for(int j = 0; j < text.length(); j++){
+        f << text[j].toStdString() << std::endl;
+    }
+    f.close();
 }
