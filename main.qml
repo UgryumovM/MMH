@@ -94,6 +94,8 @@ Window {
                         history.opr(history.wal)
                         history.currentline = ""
                         footer.dfill()
+                        tb.show = false
+                        tb.show = true
                     } else {
                         errd.visible = true
                     }
@@ -241,6 +243,9 @@ Window {
             if (cb.currentText) {
                 w.log = calendard.text + '$' + ms.text + '&' + cm.text
                 addD(cb.currentText)
+                history.currentline = ""
+                tb.show = false
+                tb.show = true
             } else
                 errnumr.visible = true
         }
@@ -304,6 +309,9 @@ Window {
             if (cbr.currentText) {
                 w.log = calendar.text + '$-' + msr.text + '&' + cmr.text
                 addR(cbr.currentText)
+                history.currentline = ""
+                tb.show = false
+                tb.show = true
             } else
                 errnumr.visible = true
         }

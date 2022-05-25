@@ -120,6 +120,8 @@ Flickable {
                             parent.isActive = !parent.isActive
                             h.currentline = parent.text
                             parsedData = func.parseAll(currentline)
+                            tb.show = false;
+                            tb.show = true;
                         }
                     }
                 }

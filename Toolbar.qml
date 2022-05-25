@@ -15,8 +15,10 @@ Rectangle{
         if (show) {
             doxod.visible = true
             rasxod.visible = true
-            trash.visible = true
-            edit.visible = true
+            if(history.currentline != "") {
+                trash.visible = true
+                edit.visible = true
+            }
         } else {
             doxod.visible = false
             rasxod.visible = false
@@ -35,6 +37,44 @@ Rectangle{
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 10
+
+        Button{
+            //text: "Изменить запись"
+            id: edit
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/pen.png"
+            visible: false
+            onClicked: editZ()
+        }
+        Button{
+
+            //text: "Удалить запись"
+            id: trash
+            Layout.minimumHeight: toolbarr.height - 10
+            Layout.minimumWidth: toolbarr.height - 10
+            icon.width: toolbarr.height - 10
+            icon.height: toolbarr.height - 10
+            width: parent.width
+            icon.color: "transparent"
+            icon.source: "/e/trash.png"
+            visible: false
+            onClicked: delZ()
+
+        }
+        Rectangle{
+            width: 20
+            height: 20
+            color: "transparent"
+            //visible: false
+        }
+
         Button{
             //text: "Запись доходов"
             id: doxod
@@ -64,36 +104,6 @@ Rectangle{
             visible: false
             onClicked: newR()
         }
-        Button{
-            //text: "Изменить запись"
-            id: edit
-            Layout.minimumHeight: toolbarr.height - 10
-            Layout.minimumWidth: toolbarr.height - 10
-            icon.width: toolbarr.height - 10
-            icon.height: toolbarr.height - 10
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            width: parent.width
-            icon.color: "transparent"
-            icon.source: "/e/pen.png"
-            visible: false
-            onClicked: editZ()
-        }
-        Button{
-
-            //text: "Удалить запись"
-            id: trash
-            Layout.minimumHeight: toolbarr.height - 10
-            Layout.minimumWidth: toolbarr.height - 10
-            icon.width: toolbarr.height - 10
-            icon.height: toolbarr.height - 10
-            width: parent.width
-            icon.color: "transparent"
-            icon.source: "/e/trash.png"
-            visible: false
-            onClicked: delZ()
-        }
-
 
     }
 }
