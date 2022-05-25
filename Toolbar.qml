@@ -65,7 +65,7 @@ Rectangle{
             onClicked: newR()
         }
         Button{
-            //text: "Удалить запись"
+            //text: "Изменить запись"
             id: edit
             Layout.minimumHeight: toolbarr.height - 10
             Layout.minimumWidth: toolbarr.height - 10

@@ -93,6 +93,7 @@ Window {
                         walletlist.refresh()
                         history.opr(history.wal)
                         history.currentline = ""
+                        footer.dfill()
                     } else {
                         errd.visible = true
                     }
@@ -102,6 +103,8 @@ Window {
                         rbd.set()
                         rbr.set()
                         dateI.visible = true
+
+                        footer.dfill()
                     } else {
                         errd.visible = true
                     }
@@ -135,7 +138,7 @@ Window {
         topMargin: w.height / 2 - height / 2
         leftMargin: w.width / 2 - width / 2
         TextInput {
-            text: "Сначала выберите запись, щелкнув по ней мышью, или создайте новую"
+            text: "Сначала выберите запись, щелкнув по ней мышью"
             readOnly: true
         }
     }
@@ -175,6 +178,7 @@ Window {
             rbr.checked ? history.currentline = calendari.text + '\n-' + msi.text
                           + '\n' + cmi.text + '\n' : history.currentline
                           = calendari.text + '\n' + msi.text + '\n' + cmi.text + '\n'
+            footer.dfill()
         }
         ColumnLayout {
             anchors.centerIn: parent

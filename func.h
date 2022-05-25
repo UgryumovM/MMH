@@ -32,6 +32,7 @@ public slots:
     double getYearSum(QString wal, QString year);
     double getYearRashod(QString wal, QString year);
     double getYearDohod(QString wal, QString year);
+    QStringList sortByDate (QStringList data);
 };
 
 

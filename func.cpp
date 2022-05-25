@@ -149,7 +149,7 @@ QStringList Func::getData(QString wal){
         i++;
     }
 
-    return text;
+    return sortByDate(text);
 }
 
 int Func::getOpNum(QString wal){
@@ -433,5 +433,99 @@ double Func::getYearRashod(QString wal, QString year){
             sum -= t;
     }
     return sum;
+}
+
+
+void swap(double* a, double* b)
+{
+    double t = *a;
+    *a = *b;
+    *b = t;
+}
+
+void swapQ(QString* a, QString* b)
+{
+    QString t = *a;
+    *a = *b;
+    *b = t;
+}
+
+// partition the array using last element as pivot
+int partition (double arr[], int low, int high, QString data[])
+{
+    int pivot = arr[high];    // pivot
+    int i = (low - 1);
+
+    for (int j = low; j <= high- 1; j++)
+    {
+        //if current element is smaller than pivot, increment the low element
+        //swap elements at i and j
+        if (arr[j] <= pivot)
+        {
+            i++;    // increment index of smaller element
+            swap(&arr[i], &arr[j]);
+            swapQ(&data[i], &data[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    swapQ(&data[i + 1], &data[high]);
+    return (i + 1);
+}
+
+//quicksort algorithm
+void quickSort(double arr[], int low, int high, QString data[])
+{
+    if (low < high)
+    {
+        //partition the array
+        int pivot = partition(arr, low, high, data);
+
+        //sort the sub arrays independently
+        quickSort(arr, low, pivot - 1, data);
+        quickSort(arr, pivot + 1, high, data);
+    }
+}
+
+
+
+QStringList Func::sortByDate(QStringList data){
+    QStringList nums;
+    QString row;
+    for (int i = 0; i < data.length(); i++){
+        row = data[i];
+        QString month;
+        QString day;
+        int j = 0;
+        for(; j < 3; j++){
+            if (row[j] == '.'){
+                j++;
+                break;
+            }
+            day.push_back(row[j]);
+        }
+        for(; j < 6; j++){
+            if (row[j] == '.'){
+                break;
+            }
+            month.push_back(row[j]);
+        }
+        double check = (month.toDouble() - 1) * 32 + day.toDouble();
+        std::string cs = std::to_string(check);
+        nums.push_back(QString::fromStdString(cs));
+    }
+    int len = nums.length();
+    double n[len];
+    for(int i = 0; i < len; i++){
+        n[i] = nums[i].toDouble();
+    }
+    QString dt[len];
+    for(int i = 0; i < len; i++){
+        dt[i] = data[i];
+    }
+    quickSort(n, 0, len - 1, dt);
+    for(int i = 0; i < len; i++){
+        data[i] = dt[i];
+    }
+    return data;
 }
 

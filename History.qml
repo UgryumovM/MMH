@@ -15,8 +15,8 @@ Flickable {
         var oli = func.getYearData(wal, footer.year)
         var len = oli.length;
         frame.opnum = len;
-        for (var i = 0; i < len; i++) {
-            ol.itemAt(i).text = oli[i]
+        for (var i = len - 1; i >= 0; i--) {
+            ol.itemAt((len - 1) - i).text = oli[i]
         }
         //footer.update()
     }
@@ -119,6 +119,7 @@ Flickable {
                             denial()
                             parent.isActive = !parent.isActive
                             h.currentline = parent.text
+                            parsedData = func.parseAll(currentline)
                         }
                     }
                 }
